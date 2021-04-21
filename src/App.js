@@ -8,6 +8,7 @@ import Anime from './components/anime'
 import Profile from './components/profile'
 import Login from './components/login'
 import SignUp from './components/sign-up'
+import NavBar from './components/nav-bar'
 import SearchBar from './components/search-bar'
 import searchReducer from './reducers/search-reducer'
 
@@ -24,15 +25,15 @@ function App() {
     <Provider store = {store}>
     <div className="App">
       <Route path={["/", "/search/anime"]} exact={true}>
+        <NavBar/>
         <SearchBar/>
-      </Route>
-      <Route path={["/", "/search/anime"]} exact={true}>
         <Home/>
       </Route>
       <Route path="/search/anime:text(\\?text=.*)?" exact={false}>
         <SearchResult/>
       </Route>
       <Route path="/anime/:animeId" exact={true}>
+        <NavBar/>
         <Anime/>
       </Route>
       <Route path="/profile" exact={true}>

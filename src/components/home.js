@@ -12,30 +12,22 @@ const Home = () => {
     const [upcomingNextSeason, setUpcomingNextSeason] = useState({})
     const [allTimePopular, setAllTimePopular] = useState({})
 
-    const year='2021'
-    const season='spring'
-    const nextSeason='summer'
+    const year='2020'
+    const season='summer'
+    const nextSeason='fall'
 
     useEffect(() => {
         kitsuService.getTrendingAnimes().
             then(animes => setTrendingNow(animes))
-        kitsuService.searchAnimes({year, season}).
+        kitsuService.searchAnimes({year, season}, ['popularityRank']).
             then(animes => setPopularThisSeason(animes))
-        kitsuService.searchAnimes({year, season:nextSeason}).
+        kitsuService.searchAnimes({year, season:nextSeason}, ['popularityRank']).
             then(animes => setUpcomingNextSeason(animes))
         kitsuService.searchAnimes({}, ['popularityRank']).
             then(animes => setAllTimePopular(animes))
-    }, [])
+    }, [year, season, nextSeason])
 
     return (<div className="container"> 
-    <div>
-    <Link to="/signup" className="btn btn-primary float-right"> 
-        Sign Up
-    </Link>
-    <Link to="/login" className="float-right"> 
-        Login
-    </Link>
-    </div>
     <br/>
     <AnimeList title="TRENDING NOW" animes={trendingNow.data}/>
     <br/>

@@ -4,7 +4,7 @@ const buildParams = (filters, sorts) => {
     let params = ''
     sorts.forEach((attr, idx) =>{
         params = idx === 0 ? 'sort=' : `${params},`
-        params = `${params}-${attr}`
+        params = `${params}${attr}`
     })
     Object.keys(filters).forEach(key => {
         if (params !== '') params = `${params}&&`

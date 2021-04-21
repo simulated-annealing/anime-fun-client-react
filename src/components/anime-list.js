@@ -7,7 +7,9 @@ const AnimeList = ({title, animes}) => {
     <h3 className="title_h3 anime_list_title">{title}</h3>
     <div className="row"> 
     {
-        animes && animes.slice(0, 5).map(am => 
+        animes && animes.filter(am =>
+            am.attributes.coverImage && am.attributes.coverImage.small).
+            slice(0, 5).map(am => 
         <div className="col-sm">
             <AnimeCard attr={am.attributes} animeId={am.id} links={am.links}/>
         </div>)
