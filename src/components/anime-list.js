@@ -1,10 +1,12 @@
 import React from 'react'
 import AnimeCard from './anime-card'
 
-const AnimeList = ({title, animes}) => {
+const AnimeList = ({title, animes, userOnly=false}) => {
 
     return <>
-    <h3 className="title_h3 anime_list_title">{title}</h3>
+    <h3 className={`title_h3 ${userOnly ? 'anime_list_title_user' : 'anime_list_title'}`}>
+        {title}
+    </h3>
     <div className="row"> 
     {
         animes && animes.filter(am =>

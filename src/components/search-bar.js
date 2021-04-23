@@ -2,27 +2,99 @@ import React, { useEffect } from 'react'
 import { useState } from 'react'
 import kitsuService from '../services/kitsu-service'
 import { connect } from 'react-redux'
+import { useHistory } from 'react-router'
 
 
 const SearchBar = ({searchAnimes}) => {
     const [filter, setFilter] = useState({text:''})
+    const history = useHistory()
 
-    useEffect(()=>
-        searchAnimes(filter), [filter])
+    useEffect(()=> {
+        const params = kitsuService.buildParams(filter, [])
+        if (params === '') {
+            history.push('/')
+            return
+        }
+        searchAnimes(filter)
+    }, [filter])
 
     return (
     <div className="container">
-        <h2>Search</h2>
-        <input className="form-control" type="text" placeholder="search anime here"
-            value={filter.text}
-            onChange={e =>
-                setFilter({
-                    ...filter,
-                    text: e.target.value
-                })}/>
+        <div className="filters">
+            <div>
+                <div className="name">
+                    Search
+                </div>
+                <div className="search-wrap">
+                    <input className="search" type="text" placeholder="Search something"
+                        value={filter.text}
+                        onChange={e => {
+                            setFilter({
+                                ...filter,
+                                text: e.target.value})
+                            history.replace({
+                                pathname:'/search/anime',
+                                search:`query=${e.target.value}`})
+                        }}/>
+                </div>
+            </div>
 
+            <div>
+                <div className="name">
+                    Genres
+                </div>
+                <div className="search-wrap">
+                    <select className="search">
+                        <option className="option">Any</option>
+                        <option className="option">Adventure</option>
+                        <option className="option">Time</option>
+                    </select>
+                </div>
+            </div>
+
+
+            <div>
+                <div className="name">
+                    Year
+                </div>
+                <div className="search-wrap">
+                    <select className="search">
+                        <option className="option">Any</option>
+                        <option className="option">Adventure</option>
+                        <option className="option">Time</option>
+                    </select>
+                </div>
+            </div>
+
+            <div>
+                <div className="name">
+                    Season
+                </div>
+                <div className="search-wrap">
+                    <select className="search">
+                        <option className="option">Any</option>
+                        <option className="option">Adventure</option>
+                        <option className="option">Time</option>
+                    </select>
+                </div>
+            </div>
+
+            <div>
+                <div className="name">
+                    Format
+                </div>
+                <div className="search-wrap">
+                    <select className="search">
+                        <option className="option">Any</option>
+                        <option className="option">Adventure</option>
+                        <option className="option">Time</option>
+                    </select>
+                </div>
+            </div>
+        </div>
     </div>)
 }
+
 
 const stpm = state => ({})
 
