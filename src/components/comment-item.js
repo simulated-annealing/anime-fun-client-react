@@ -21,7 +21,7 @@ const CommentItem = ({comment, session, updateComments}) => {
 
     return (
         <div className="comment-item">
-            <Link to={comment.username !== 'Guest' ? `/users/${comment.username}`:'#'}>
+            <Link to={comment.username !== 'Guest' ? `/profile/${comment.username}`:'#'}>
                 <img className="comment-user-logo"/>
             </Link>
             <div className="comment-item-area">

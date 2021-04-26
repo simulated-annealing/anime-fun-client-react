@@ -32,13 +32,59 @@ export const getProfile = () =>
         credentials: 'include'
     }).then(resp => resp.json())
 
+export const getProfileByUsername = username => 
+    fetch(`${USER_URL}/${username}`, {
+        method: 'GET',
+        credentials: 'include'
+    }).then(resp => resp.json())
+
+export const updateUser = user =>
+    fetch(`${USER_URL}`, {
+        method: 'PUT',
+        credentials: 'include',
+        body: JSON.stringify(user),
+        headers: {
+            'content-type': 'application/json'
+        }
+    }).then(resp => resp.json())
+
+export const addFavorite = animeId =>
+    fetch(`${USER_URL}/favorites/${animeId}`, {
+        method: 'PUT',
+        credentials: 'include'
+    }).then(resp => resp.json())
+
+export const delFavorite = animeId =>
+    fetch(`${USER_URL}/favorites/${animeId}`, {
+        method: 'DELETE',
+        credentials: 'include'
+    }).then(resp => resp.json())
+
+export const addWatchlist = animeId =>
+    fetch(`${USER_URL}/watchlist/${animeId}`, {
+        method: 'PUT',
+        credentials: 'include'
+    }).then(resp => resp.json())
+
+export const delWatchlist = animeId =>
+    fetch(`${USER_URL}/watchlist/${animeId}`, {
+        method: 'DELETE',
+        credentials: 'include'
+    }).then(resp => resp.json())
+
 export const isSessionValid = session => 
-    (session.expired && session.expired !== 0)
+    session.expired && session.expired !== 0 ? true : undefined
 
 export default {
     signup,
     signin,
     signout,
+    updateUser,
     getProfile,
+    getProfileByUsername,
+    addFavorite,
+    delFavorite,
+    addWatchlist,
+    delWatchlist,
     isSessionValid,
 }

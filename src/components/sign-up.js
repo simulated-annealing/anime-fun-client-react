@@ -12,6 +12,7 @@ const SignUp = ({session, updateSession}) => {
         password:'',
         role:'USER',
         description: 'tell us more about yourself...',
+        email: ''
     })
 
     const history = useHistory()
@@ -20,8 +21,23 @@ const SignUp = ({session, updateSession}) => {
         if (userService.isSessionValid(session)) 
             history.push('/profile') 
         }, [session])
+
+    const verifyEmail = () => 
+        (/^[a-zA-Z0-9.!#$%&'*+\/=?^_`{|}~-]+@[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?(?:\.[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?)*$/.test(newUser.email)) 
     
     const signup = () => {
+        if (!verifyEmail(newUser.email)) {
+            alert("incorrect mail format!")
+            return
+        }
+        if (newUser.username.length < 4) {
+            alert("username must contain at least 4 characters!")
+            return
+        }
+        if (newUser.password.length < 4) {
+            alert("password must contain at least 4 characters!")
+            return
+        }
         if (newUser.password !== verifyPassword) {
             alert("password does not match!")
             return
@@ -38,17 +54,16 @@ const SignUp = ({session, updateSession}) => {
                 })
                 return
             }
-            alert('Failed to sign up, try again...')
+            alert('User already existed. Try another username...')
         })
     }
 
     return (
-    <div className="container">
-        <h4>
-            Sign Up To Anime Fun
+    <div className="signup-page">
+        <h4 className="signup-title">
+            Sign Up
         </h4>
-        <br/>
-
+    <div className="signup-container">
         <div className="row mb-3">
         <label htmlFor="username_field" className="col-sm-2 col-form-label">
             Username
@@ -90,12 +105,27 @@ const SignUp = ({session, updateSession}) => {
         </div>
 
         <div className="row mb-3">
+        <label htmlFor="email_field" className="col-sm-2 col-form-label">
+            Email
+        </label>
+        <div className="col-sm-10">
+        <input className="form-control" id="email_field" 
+            placeholder="example@animefun.com" type="email"
+            value={newUser.email} onChange={e => 
+                setNewUser({
+                    ...newUser,
+                    email: e.target.value
+                })}/>
+        </div>
+        </div>
+
+        <div className="row mb-3">
         <label htmlFor="user_role_field" className="col-sm-2 col-form-label">
             User Role
         </label>
         <div className="col-sm-10">
             <div className="select-role-wrap">
-            <select className="select-role" value={newUser.role}
+            <select className="select-role" value={newUser.role} id="user_role_field"
                 onChange={e => setNewUser({
                     ...newUser,
                     role: e.target.value
@@ -111,29 +141,18 @@ const SignUp = ({session, updateSession}) => {
         <label className="col-sm-2 col-form-label">
         </label>
         <div className="col-sm-10">
-            <button className="btn btn-primary btn-block" onClick={signup}>
+            <button className="btn btn-primary btn-block signup-button" onClick={signup}>
                 Sign Up
             </button>
         </div>
         </div>
-
-        <div className="row">
-        <label className="col-sm-2 col-form-label">
-        </label>
-        <div className="col">
-            <Link to='/login'>
+        <div>
+            <Link to='/login' className="float-right">
                 Already have an account? 
             </Link>
         </div>
-        <div className="col">
-            <Link to='/'>
-                Home Page
-            </Link>
-        </div>
-        </div>
     </div>
-    )
-
+    </div>)
 }
 
 const stpm = state => ({

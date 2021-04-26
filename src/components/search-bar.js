@@ -2,21 +2,38 @@ import React, { useEffect } from 'react'
 import { useState } from 'react'
 import kitsuService from '../services/kitsu-service'
 import { connect } from 'react-redux'
-import { useHistory } from 'react-router'
+import { useHistory, useLocation } from 'react-router'
+import querySearch from 'stringquery'
 
 
 const SearchBar = ({searchAnimes}) => {
     const [filter, setFilter] = useState({text:''})
     const history = useHistory()
+    const search = querySearch(useLocation().search)
 
     useEffect(()=> {
-        const params = kitsuService.buildParams(filter, [])
-        if (params === '') {
-            history.push('/')
+        let params = kitsuService.buildParams(filter, [])
+        if (params !== '') {
+            searchAnimes(filter)
             return
         }
-        searchAnimes(filter)
+        if (search.query !== undefined && search.query !== '') {
+            setFilter({
+                ...filter,
+                text: search.query
+            })
+            params = kitsuService.buildParams({
+                ...filter,
+                text: search.query
+            }, [])
+        }
+        if (params !== '') {
+            searchAnimes(filter)
+            return
+        }
+        history.push('/')
     }, [filter])
+
 
     return (
     <div className="container">

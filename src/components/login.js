@@ -32,12 +32,12 @@ const Login = ({session, updateSession}) => {
 
 
     return (
-    <div className="container">
-        <h1>
+    <div className="login-page">
+        <h4 className="login-title">
             Sign In
-        </h1>
-
-        <div className="row wbdv-row">
+        </h4>
+    <div className="login-container">
+        <div className="row mb-3">
         <label htmlFor="username_field" className="col-sm-2 col-form-label">
             Username
         </label>
@@ -51,7 +51,7 @@ const Login = ({session, updateSession}) => {
         </div>
         </div>
 
-        <div className="row wbdv-row">
+        <div className="row mb-3">
         <label htmlFor="password_field" className="col-sm-2 col-form-label">
             Password
         </label>
@@ -65,31 +65,22 @@ const Login = ({session, updateSession}) => {
         </div>
         </div>
 
-        <div className="row wbdv-row">
+        <div className="row">
         <label className="col-sm-2 col-form-label">
         </label>
         <div className="col-sm-10">
-        <button className="btn btn-primary btn-block" onClick={signin}>
+        <button className="btn btn-primary btn-block login-button" onClick={signin}>
             Sign In
         </button>
         </div>
         </div>
 
-        <div className="row">
-            <label className="col-sm-2 col-form-label">
-            </label>
-            <div className="col">
-                <Link to="/">
-                    Home Page
-                </Link>
-            </div>
-            <div className="col">
-                <Link to="/signup">
-                    Sign Up
-                </Link>
-            </div>
-
+        <div>
+            <Link to="/signup" className="float-right">
+                Don't have an account? 
+            </Link>
         </div>
+    </div>
     </div>)
 }
 

@@ -12,6 +12,7 @@ import Profile from './components/profile'
 import Login from './components/login'
 import SignUp from './components/sign-up'
 import NavBar from './components/nav-bar'
+import ActivitySection from './components/activity-section'
 import SearchBar from './components/search-bar'
 import searchReducer from './reducers/search-reducer'
 import sessionReducer from './reducers/session-reducer'
@@ -39,8 +40,13 @@ function App() {
     <PersistGate loading={null} persistor={persistor}>
     <div className="App">
 
-      <Route path={["/", "/search/anime"]} exact={true}>
+      <Route path={["/", "/search/anime", "/anime/:animeId",
+            "/profile", "/profile/:username", "/login", "/signup"]} exact={true}>
         <NavBar/>
+      </Route>
+
+      <Route path={["/", "/search/anime"]} exact={true}>
+        <ActivitySection/>
         <SearchBar/>
       </Route>
 
@@ -53,10 +59,9 @@ function App() {
       </Route>
 
       <Route path="/anime/:animeId" exact={true}>
-        <NavBar/>
         <AnimeDetail/>
       </Route>
-      <Route path="/profile" exact={true}>
+      <Route path={["/profile", "/profile/:username"]} exact={true}>
         <Profile/>
       </Route>
       <Route path="/login" exact={true}>
