@@ -1,7 +1,7 @@
 const COMMENT_URL='http://localhost:3001/api/comments'
 
 export const getComments = () => 
-    fetch(`${COMMENT_URL}`).then(resp =>
+    fetch(COMMENT_URL).then(resp =>
         resp.json())
 
 export const getCommentsForAnime = animeId => 

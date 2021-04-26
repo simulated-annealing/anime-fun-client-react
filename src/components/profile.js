@@ -83,7 +83,6 @@ const Profile = ({session, invalidateSession, updateUser}) => {
         </div>
 
         <div>
-            <Link to='/'> Home </Link>
             <button className="btn btn-danger profile-section-signout" onClick={invalidateSession}>
                 Sign Out
             </button>

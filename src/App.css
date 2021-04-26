@@ -559,6 +559,18 @@ h1, h2, h3, h4, h5, h6 {
   height: 18px;
 }
 
+.select-report-type{
+  background: 0 0;
+  border: none;
+  color: rgb(var(--color-gray-700));
+  display: inline-block;
+  margin: 0;
+  outline: 0;
+  padding: 0;
+  width: 100%;
+  height: 19px;
+}
+
 .activity-wrap {
   display: grid;
   grid-gap: 6px;
@@ -603,8 +615,7 @@ h1, h2, h3, h4, h5, h6 {
 
 .profile-page {
   background: rgb(var(--color-background));
-  padding-top: 120px;
-  padding-bottom: 1000px;
+  padding-bottom: 100px;
 }
 
 .profile-container {
@@ -660,7 +671,7 @@ h1, h2, h3, h4, h5, h6 {
   border-radius: 5px;
   color: rgb(var(--color-text));
   padding: 6px 8px;
-  left: 582px;
+  left: 630px;
 }
 
 .profile-section-update {
@@ -673,7 +684,7 @@ h1, h2, h3, h4, h5, h6 {
   border-radius: 5px;
   color: rgb(var(--color-text));
   padding: 6px 8px;
-  left: 368px;
+  left: 415px;
 }
 
 .description-textarea{

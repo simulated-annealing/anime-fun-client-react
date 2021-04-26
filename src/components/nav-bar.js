@@ -11,11 +11,9 @@ const NavBar = ({session}) => {
     <div className={animeId === undefined ? "nav-container" : "nav-container-detail"}>
     <div className="nav-content">
     <Link to="/" className="nav-logo"> 
-        <img width="50px"
-        src='https://www.pngfind.com/pngs/m/685-6854970_react-logo-png-png-download-logo-png-reactjs.png'/>
+        <img width="50px" src='https://www.pngfind.com/pngs/m/685-6854970_react-logo-png-png-download-logo-png-reactjs.png'/>
     </Link>
     <div className="nav-controls">
-
     {
         !userService.isSessionValid(session) && <>
         <Link to="/login" className="nav-login"> Login </Link>
@@ -23,13 +21,12 @@ const NavBar = ({session}) => {
         </>
     }
     {
-        userService.isSessionValid(session) && 
-        <Link to="/profile" className="nav-profile"> 
-            Welcome, {session.user.username}
-        </Link>
+        userService.isSessionValid(session) && <>
+        <Link to="/profile" className="nav-login"> Welcome, {session.user.username} </Link>
+        <Link to="/feedback" className="nav-signup"> Feedback </Link>
+        </>
     }
     </div>
-
     </div>
     </div>)
 }
