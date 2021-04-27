@@ -8,9 +8,10 @@ export const buildParams = (filters, sorts) => {
     })
     Object.keys(filters).forEach(key => {
         if (filters[key] === '') return
-        if (params !== '') params = `${params}&&`
+        if (params !== '') params = `${params}&`
         params=`${params}filter[${key}]=${filters[key]}`
     })
+    console.log('built params :', params)
     return params
 }
 

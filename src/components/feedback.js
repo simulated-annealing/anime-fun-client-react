@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react'
 import { connect } from 'react-redux'
-import {Link, useHistory} from 'react-router-dom'
+import { useHistory } from 'react-router-dom'
 import userService from '../services/user-service'
 import feedbackService from '../services/feedback-service'
 

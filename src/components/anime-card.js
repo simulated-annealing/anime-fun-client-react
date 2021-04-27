@@ -6,7 +6,7 @@ const AnimeCard = ({animeId, attr}) => {
 
     return <> 
     <Link to={`/anime/${animeId}`} className="cover">
-    <img src={attr.posterImage.large} width="185" className="cover_image"/>
+    {attr.posterImage && <img src={attr.posterImage.large} width="185" className="cover_image"/>}
     </Link>
     <Link to={`/anime/${animeId}`} className='title'> 
     {

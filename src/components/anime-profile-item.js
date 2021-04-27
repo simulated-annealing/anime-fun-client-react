@@ -30,7 +30,7 @@ const AnimeProfileItem = ({animeId}) => {
     return (
     <div className="anime_item">
     <Link to={`/anime/${animeId}`} className="cover">
-        <img src={attr.posterImage.small} width="50" className="cover_image"/>
+        {attr.posterImage && <img src={attr.posterImage.small} width="50" className="cover_image"/>}
     </Link>
 
     <div className="anime-profile-item-content">
