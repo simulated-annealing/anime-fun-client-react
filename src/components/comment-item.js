@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useEffect, useState } from 'react'
 import { connect } from 'react-redux'
 import { Link } from 'react-router-dom'
 import userService from '../services/user-service'
@@ -6,6 +6,12 @@ import commentService from '../services/comment-service'
 
 
 const CommentItem = ({comment, session, updateComments}) => {
+
+    const [avatar, setAvatar] = useState('')
+
+    useEffect(() => 
+        userService.getAvatar(comment.username).then(resp => 
+            setAvatar(resp.avatar)), [comment])
 
     const deleteComment = () => {
         if (!userService.isSessionValid(session)) {
@@ -22,7 +28,7 @@ const CommentItem = ({comment, session, updateComments}) => {
     return (
         <div className="comment-item">
             <Link to={comment.username !== 'Guest' ? `/profile/${comment.username}`:'#'}>
-                <img className="comment-user-logo"/>
+                <img className="comment-user-logo" src={avatar}/>
             </Link>
             <div className="comment-item-area">
                 <div className="comment-item-content">

@@ -75,6 +75,16 @@ export const delWatchlist = animeId =>
 export const isSessionValid = session => 
     session.expired && session.expired !== 0 ? true : undefined
 
+export const updateAvatar = username => 
+    fetch(`${USER_URL}/${username}/avatar/`, {
+        method: 'PUT',
+        credentials: 'include'
+    }).then(resp => resp.json())
+
+export const getAvatar = username => 
+    fetch(`${USER_URL}/${username}/avatar`).then(resp => 
+        resp.json())
+
 export default {
     signup,
     signin,
@@ -87,4 +97,6 @@ export default {
     addWatchlist,
     delWatchlist,
     isSessionValid,
+    updateAvatar,
+    getAvatar
 }

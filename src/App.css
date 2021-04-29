@@ -927,3 +927,38 @@ h1, h2, h3, h4, h5, h6 {
   margin-right: -500px;
   color: white;
 }
+
+.profile-follower-container {
+  border-radius: 12px;
+  margin-left: 325px;
+  margin-right: 320px;
+  min-width: 0;
+  display: grid;
+  grid-gap: 35px;
+  grid-template-columns: repeat(8, 1fr);
+}
+
+.profile-follower-img {
+  border-radius: 4px;
+  width: 58px;
+  height: 58px;
+}
+
+.profile-follower-name {
+  max-width: 62px;
+  text-align: center;
+  font-size: 0.86rem;
+}
+
+.profile-follower-link {
+  color: var(--color-text);
+}
+
+.profile-follower-link:hover {
+  color: rgb(var(--color-red-400));
+}
+
+.profile-section-avatar-img {
+  height: 125px;
+  border-radius: 6px;
+}

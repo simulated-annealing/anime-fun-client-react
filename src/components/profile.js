@@ -2,10 +2,12 @@ import React, { useEffect, useState } from 'react'
 import { connect } from 'react-redux'
 import { useHistory, useParams } from 'react-router'
 import { Link } from 'react-router-dom'
-import userService from '../services/user-service'
 import AnimeProfileItem from './anime-profile-item'
+import userService from '../services/user-service'
+import followService from '../services/follow-service'
 
-const Profile = ({session, invalidateSession, updateUser}) => {
+
+const Profile = ({session, invalidateSession, updateUser, updateAvatar}) => {
     const history = useHistory()
     const [user, setUser] = useState({
         username: 'unknown',
@@ -13,11 +15,16 @@ const Profile = ({session, invalidateSession, updateUser}) => {
         email: 'unknown',
         createAt: 'unknown',
         description: 'unknown',
+        avatar: 'https://i.pinimg.com/564x/08/98/40/089840829e7083a6021ce1b0c4e35a4b.jpg',
         favorites: [],
         watchlist: []
     })
 
     const {username} = useParams()
+    const [followers, setFollowers] = useState([])
+    const [followees, setFollowees] = useState([])
+    const [followed, setFollowed] = useState(false)
+    const [avatars, setAvatars] = useState({})
 
     const fetchProfile = () => {
         if (username === undefined && !userService.isSessionValid(session)){
@@ -25,6 +32,7 @@ const Profile = ({session, invalidateSession, updateUser}) => {
             history.push('/login') 
         } else if (username === undefined) {
             setUser(session.user)
+            fetchFollows(session.user.username)
         } else {
             userService.getProfileByUsername(username).then(resp => {
                 if (resp === 0) {
@@ -33,8 +41,31 @@ const Profile = ({session, invalidateSession, updateUser}) => {
                     return
                 } 
                 setUser(resp)
+                fetchFollows(resp.username)
             })
         }
+    }
+
+    const fetchFollows = username => {
+        followService.getFollowers(username).then(resp => {
+            setFollowers(resp)
+            setFollowed(undefined !== resp.find(f => f.follower === session.user.username))
+            resp.forEach((f, idx) => 
+                userService.getAvatar(f.follower).then(resp => 
+                    setAvatars({
+                        ...avatars,
+                        [f.follower]: resp.avatar
+                    })))
+        })
+        followService.getFollowees(username).then(resp => {
+            setFollowees(resp)
+            resp.forEach((f, idx) => 
+                userService.getAvatar(f.followee).then(resp => 
+                    setAvatars({
+                        ...avatars,
+                        [f.followee]: resp.avatar
+                    })))
+        })
     }
 
     const updateClicked = () => {
@@ -48,12 +79,72 @@ const Profile = ({session, invalidateSession, updateUser}) => {
         })
     }
 
+    const followUser = () => {
+        if (!userService.isSessionValid(session)) {
+            alert(' You need to sign in to follow this user.')
+            return
+        }
+        if (session.user.username === user.username) {
+            alert(' You can\'t follow your self.')
+            return
+        }
+        followService.postFollow({
+            follower: session.user.username,
+            followee: user.username,
+        }).then(resp => {
+            if (resp === 0) {
+                alert('failed to follow this user, please try again later')
+                return
+            }
+            setFollowed(true)
+        })
+    }
+
+    const unfollowUser = () => {
+        const follow = followers.find(f => f.follower === session.user.username)
+        if (follow === undefined) {
+            alert('failed to unfollow this user, please try again later!!!')
+            return
+        }
+        followService.deleteFollow(follow._id).then(resp => {
+            if (resp === 0) {
+                alert('failed to unfollow this user, please try again later')
+                return
+            }
+            setFollowed(false)
+        })
+    }
+
+    const updateAvatarClicked = () => {
+        updateAvatar(user.username).then(resp => {
+            if (resp === 0) {
+                alert('update avatar failed, please try again later.')
+            }
+        })
+    }
+
     useEffect(fetchProfile, [session, username])
 
     return (
     <div className="profile-page" >
     <h4 className="profile-favorites-title"> Personal Information </h4>
     <div className="profile-container">
+        <div className="profile-section">
+            <div className="profile-section-title"> User Avatar </div>
+            <div className="profile-section-avatar">
+                <img className="profile-section-avatar-img" src={user.avatar}></img>
+            </div>
+            <div className="profile-section-title">
+                <button onClick={followed?unfollowUser:followUser}>
+                    {followed?'Followed':'Follow'}
+                </button>
+            </div>
+            <div className="profile-section-title">
+                <button onClick={updateAvatarClicked}>
+                    I'm feeling lucky!
+                </button>
+            </div>
+        </div>
         <div className="profile-section">
             <div className="profile-section-title"> User Name </div>
             <div className="profile-section-data"> {user.username} </div>
@@ -82,23 +173,48 @@ const Profile = ({session, invalidateSession, updateUser}) => {
                 }}/>
         </div>
 
-        <div>
+        {session.user && session.user.username === user.username && <div>
             <button className="btn btn-danger profile-section-signout" onClick={invalidateSession}>
                 Sign Out
             </button>
             <button className="btn btn-success profile-section-update" onClick={updateClicked}>
                 Update 
             </button>
+        </div>}
+
         </div>
+
+        {followees.length !==0 && <h4 className="profile-favorites-title"> {user.username} followed these people</h4>}
+        <div className="profile-follower-container">
+        {followees.map(f => 
+            <Link className="profile-follower-link" to={`/profile/${f.followee}`}>
+                <img className="profile-follower-img" src={avatars[f.followee]}/>
+                <div className="profile-follower-name">
+                    {f.followee}
+                </div>
+            </Link>)}
         </div>
-        <h4 className="profile-favorites-title"> My Favorites </h4>
+
+        {followers.length !==0 && <h4 className="profile-favorites-title"> These people followed {user.username} </h4>}
+        <div className="profile-follower-container">
+        {followers.map((f, idx) => 
+            <Link className="profile-follower-link" to={`/profile/${f.follower}`}>
+                <img className="profile-follower-img" src={avatars[f.follower]}/>
+                <div className="profile-follower-name">
+                    {f.follower}
+                </div>
+            </Link>)}
+        </div>
+
+        {user.favorites.length && <h4 className="profile-favorites-title"> My Favorites </h4>}
         <div className="profile-anime-list-container">
-        { user.favorites.map(animeId => <AnimeProfileItem animeId={animeId}/>) }
+        {user.favorites.map(animeId => <AnimeProfileItem animeId={animeId}/>)}
         </div>
-        <h4 className="profile-favorites-title"> My Watch List </h4>
+        {user.watchlist.length && <h4 className="profile-favorites-title"> My Watch List </h4>}
         <div className="profile-anime-list-container">
-        { user.watchlist.map(animeId => <AnimeProfileItem animeId={animeId}/>) }
+        {user.watchlist.map(animeId => <AnimeProfileItem animeId={animeId}/>)}
         </div>
+
     </div>)
 }
 
@@ -117,6 +233,16 @@ const dtpm = dispatch => ({
                     type: 'UPDATE_USER',
                     user: resp
                 })
+            return resp
+        }),
+    updateAvatar: username =>
+        userService.updateAvatar(username).then(resp => {
+            if (resp !== 0) {
+                dispatch({
+                    type: 'UPDATE_USER_AVATAR',
+                    avatar: resp.avatar
+                })
+            }
             return resp
         })
 })

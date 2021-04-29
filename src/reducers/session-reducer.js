@@ -5,6 +5,7 @@ const initState = {
         createAt: '',
         favorites: [],
         watchlist: [],
+        avatar: 'https://i.pinimg.com/564x/08/98/40/089840829e7083a6021ce1b0c4e35a4b.jpg'
     },
     expired: 0
 }
@@ -19,6 +20,14 @@ const sessionReducer = (state = initState, action) => {
             return {
                 ...state,
                 user: action.user
+            }
+        case 'UPDATE_USER_AVATAR':
+            return {
+                ...state,
+                user: {
+                    ...state.user,
+                    avatar: action.avatar
+                }
             }
         default:
             return state
