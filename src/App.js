@@ -14,6 +14,7 @@ import SignUp from './components/sign-up'
 import NavBar from './components/nav-bar'
 import ActivitySection from './components/activity-section'
 import Feedback from './components/feedback'
+import FeedbackView from './components/feedbackview'
 import SearchBar from './components/search-bar'
 import searchReducer from './reducers/search-reducer'
 import sessionReducer from './reducers/session-reducer'
@@ -42,7 +43,7 @@ function App() {
     <div className="App">
 
       <Route path={["/", "/search/anime", "/anime/:animeId",
-            "/profile", "/profile/:username", "/login", "/signup", "/feedback"]} exact={true}>
+            "/profile", "/profile/:username", "/login", "/signup", "/feedback", "/feedback/view"]} exact={true}>
         <NavBar/>
       </Route>
 
@@ -73,6 +74,9 @@ function App() {
       </Route>
       <Route path="/feedback" exact={true}>
         <Feedback/>
+      </Route>
+      <Route path="/feedback/view" exact={true}>
+        <FeedbackView/>
       </Route>
     </div>
     </PersistGate>

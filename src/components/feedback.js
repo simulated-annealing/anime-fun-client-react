@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react'
 import { connect } from 'react-redux'
-import { useHistory } from 'react-router-dom'
+import { useHistory, Link } from 'react-router-dom'
 import userService from '../services/user-service'
 import feedbackService from '../services/feedback-service'
 
@@ -30,7 +30,7 @@ const Feedback = ({session}) => {
     const submitFb = () =>
         feedbackService.postFeedback(fb).then(resp =>
             alert("Thank you for submitting your feedbacks. We'll have a team review your request, and may contact you if needed."))
-
+    
     return (
     <div className="signup-page">
         <h4 className="signup-title">
@@ -80,6 +80,11 @@ const Feedback = ({session}) => {
                 Submit
             </button>
         </div>
+        </div>
+        <div>
+            <Link to='/feedback/view' className="float-right">
+                View Feedbacks
+            </Link>
         </div>
     </div>
     </div>)

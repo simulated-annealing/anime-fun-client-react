@@ -1080,3 +1080,20 @@ h1, h2, h3, h4, h5, h6 {
 .color-text-6 {
   color:violet;
 }
+
+.feedback-container {
+  background: rgb(var(--color-background-400));
+  border-radius: 12px;
+  padding: 30px;
+  margin-left: 15%;
+  margin-right: 15%;
+  min-width: 0;
+  margin-bottom: 25px;
+}
+
+.feedback-user-info {
+  font-style: italic;
+  font-size: 0.92rem;
+  font-weight: 300;
+  color: var(--color-text);
+}

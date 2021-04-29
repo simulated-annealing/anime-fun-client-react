@@ -1,8 +1,10 @@
 const FEEDBACK_URL='http://localhost:3001/api/feedbacks'
 
 export const getFeedbacks = () => 
-    fetch(FEEDBACK_URL).then(resp =>
-        resp.json())
+    fetch(FEEDBACK_URL, {
+        method: 'GET',
+        credentials: 'include'
+    }).then(resp => resp.json())
 
 export const postFeedback = feedback => 
     fetch(FEEDBACK_URL, {
