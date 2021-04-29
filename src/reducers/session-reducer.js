@@ -5,7 +5,12 @@ const initState = {
         createAt: '',
         favorites: [],
         watchlist: [],
-        avatar: 'https://i.pinimg.com/564x/08/98/40/089840829e7083a6021ce1b0c4e35a4b.jpg'
+        avatar: '',
+        exp: 0,
+        authorization: 0,
+        dob: '',
+        role: 'USER',
+        password: ''
     },
     expired: 0
 }

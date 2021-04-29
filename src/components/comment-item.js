@@ -22,7 +22,13 @@ const CommentItem = ({comment, session, updateComments}) => {
             alert('You need to be an admin role to delete the comment.')
             return
         }
-        commentService.deleteComment(comment._id).then(updateComments)
+        commentService.deleteComment(comment._id).then(resp => {
+            if (resp === 0) {
+                alert('You don\'t have the permission to delete the comment.')
+                return
+            }
+            updateComments()
+        })
     }
 
     return (

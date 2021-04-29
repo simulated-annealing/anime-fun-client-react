@@ -629,7 +629,9 @@ h1, h2, h3, h4, h5, h6 {
 
 .profile-information-content {
   display: grid;
-  grid-template-columns: 190px 1fr 1fr;
+  grid-template-columns: 160px 1fr 1fr;
+  margin-bottom: 5px;
+  grid-gap: 25px;
 }
 
 .profile-anime-list-container {
@@ -659,37 +661,40 @@ h1, h2, h3, h4, h5, h6 {
   font-size: 0.9rem;
   font-style: italic;
   display: inline-block;
-  width: 90%;
+  width: 100%;
   background: rgb(var(--color-background));
   border-radius: 5px;
   color: rgb(var(--color-text-light));
   padding: 6px 10px;
+  border-width: 0px;
 }
 
+.profile-section-buttons {
+  margin-bottom: 35px;
+}
 .profile-section-signout {
-  position: relative;
+  float: right;
   font-size: 0.9rem;
   display: inline-block;
   border-width: 0px;
-  width: 14%;
+  width: 100px;
   background: rgb(var(--color-background-400));
   border-radius: 5px;
   color: rgb(var(--color-text));
   padding: 6px 8px;
-  left: 630px;
 }
 
 .profile-section-update {
-  position: relative;
+  float: right;
+  margin-right: 10px;
   font-size: 0.9rem;
   display: inline-block;
   border-width: 0px;
-  width: 14%;
+  width: 100px;
   background: rgb(var(--color-background-400));
   border-radius: 5px;
   color: rgb(var(--color-text));
   padding: 6px 8px;
-  left: 415px;
 }
 
 .description-textarea{
@@ -707,7 +712,7 @@ h1, h2, h3, h4, h5, h6 {
   display: block;
   display: flex;
   justify-content: center;
-  margin-top: 15px;
+  margin-top: 8px;
 }
 
 .signup-page {
@@ -874,6 +879,11 @@ h1, h2, h3, h4, h5, h6 {
   width: 65px;
 }
 
+.nav-logo-img {
+  width: 155px;
+  margin-left: 15px;
+}
+
 .nav-controls {
   align-items: center;
   display: inline-flex;
@@ -940,19 +950,25 @@ h1, h2, h3, h4, h5, h6 {
   min-width: 0;
   display: grid;
   grid-gap: 35px;
-  grid-template-columns: repeat(8, 1fr);
+  grid-template-columns: repeat(6, 1fr);
 }
 
 .profile-follower-img {
-  border-radius: 4px;
-  width: 58px;
-  height: 58px;
+  border-radius: 6px;
+  width: 100px;
+  height: 100px;
+  box-shadow: 0 6px 5px rgba(var(--color-shadow-blue),.15),0 4px 4px rgba(var(--color-shadow-blue),.10);
 }
 
 .profile-follower-name {
   max-width: 62px;
-  text-align: center;
-  font-size: 0.86rem;
+  font-size: 1.00rem;
+  font-weight: 300;
+  color:var(--color-text);
+  position: relative;
+  float: left;
+  left: 50%;
+  transform: translate(-50%, 12%);
 }
 
 .profile-follower-link {
@@ -966,6 +982,7 @@ h1, h2, h3, h4, h5, h6 {
 .profile-section-avatar-img {
   height: 152px;
   border-radius: 6px;
+  box-shadow: 0 6px 5px rgba(var(--color-shadow-blue),.15),0 4px 4px rgba(var(--color-shadow-blue),.10);
 }
 
 .profile-feel-lucky {
@@ -977,7 +994,7 @@ h1, h2, h3, h4, h5, h6 {
   font-size: 0.9rem;
   padding: 6px 10px;
   font-weight: 400;
-  color: var(--color-background-1200);
+  color:whitesmoke;
   background-color: darkseagreen;
 }
 

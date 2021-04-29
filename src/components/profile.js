@@ -17,7 +17,10 @@ const Profile = ({session, invalidateSession, updateUser, updateAvatar}) => {
         description: 'unknown',
         avatar: 'https://i.pinimg.com/564x/08/98/40/089840829e7083a6021ce1b0c4e35a4b.jpg',
         favorites: [],
-        watchlist: []
+        watchlist: [],
+        exp: 0,
+        authorization: 0,
+        dob: 'unknown'
     })
 
     const {username} = useParams()
@@ -50,21 +53,23 @@ const Profile = ({session, invalidateSession, updateUser, updateAvatar}) => {
         followService.getFollowers(username).then(resp => {
             setFollowers(resp)
             setFollowed(undefined !== resp.find(f => f.follower === session.user.username))
-            resp.forEach((f, idx) => 
-                userService.getAvatar(f.follower).then(resp => 
-                    setAvatars({
-                        ...avatars,
-                        [f.follower]: resp.avatar
-                    })))
+            resp.forEach(f => 
+                userService.getAvatar(f.follower).then(ava =>
+                    setAvatars(prevState => ({
+                        ...prevState,
+                        [f.follower]: ava.avatar
+                    }))
+                ))
         })
         followService.getFollowees(username).then(resp => {
             setFollowees(resp)
-            resp.forEach((f, idx) => 
-                userService.getAvatar(f.followee).then(resp => 
-                    setAvatars({
-                        ...avatars,
-                        [f.followee]: resp.avatar
-                    })))
+            resp.forEach(f => 
+                userService.getAvatar(f.followee).then(ava => { 
+                    setAvatars(prevState => ({
+                        ...prevState,
+                        [f.followee]: ava.avatar
+                    }))
+                }))
         })
     }
 
@@ -155,10 +160,19 @@ const Profile = ({session, invalidateSession, updateUser, updateAvatar}) => {
             <div className="profile-section-title"> Role </div>
             <div className="profile-section-data"> {user.role} </div>
         </div>
-        <div className="profile-section">
+        {user && user.role === 'USER' && <div className="profile-section">
             <div className="profile-section-title"> Exp </div>
-            <div className="profile-section-data"> {user.exp || '0'} </div>
-        </div>
+            <div className="profile-section-data"> {user.exp} </div>
+        </div>}
+        {user && user.role === 'ADMIN' && <div className="profile-section">
+            <div className="profile-section-title" htmlFor="author_field"> Authorization Code </div>
+            <input className="profile-section-data" id="author_filed" type="number"
+                disabled = {username !== undefined && username !== session.user.username}
+                value={user.authorization} onChange={e => setUser({
+                    ...user,
+                    authorization: e.target.value
+                })}/>
+        </div>}
         </div>
         <div>
         <div className="profile-section">
@@ -171,15 +185,15 @@ const Profile = ({session, invalidateSession, updateUser, updateAvatar}) => {
         </div>
         <div className="profile-section">
             <div className="profile-section-title"> Date of Birth </div>
-            <div className="profile-section-data"> {user.dob || '2001-01-01'}</div>
+            <div className="profile-section-data"> {user.dob}</div>
         </div>
         </div>
     </div>
         <div className="profile-section">
             <div className="profile-section-title" htmlFor="aboutme"> About me </div>
             <textarea rows="8" id="aboutme" className="description-textarea" value={user.description}
-                disabled = {username !== undefined}
-                placeholder="leave your comments here..." onChange = {e => {
+                disabled = {username !== undefined && username !== session.user.username}
+                placeholder="This user is too lazy to leave something here..." onChange = {e => {
                     setUser({
                         ...user,
                         description: e.target.value
@@ -187,7 +201,7 @@ const Profile = ({session, invalidateSession, updateUser, updateAvatar}) => {
                 }}/>
         </div>
 
-        {session.user && session.user.username === user.username && <div>
+        {session.user && session.user.username === user.username && <div className="profile-section-buttons">
             <button className="btn btn-danger profile-section-signout" onClick={invalidateSession}>
                 Sign Out
             </button>
@@ -211,7 +225,7 @@ const Profile = ({session, invalidateSession, updateUser, updateAvatar}) => {
 
         {followers.length !==0 && <h4 className="profile-favorites-title"> These people followed {user.username} </h4>}
         <div className="profile-follower-container">
-        {followers.map((f, idx) => 
+        {followers.map(f => 
             <Link className="profile-follower-link" to={`/profile/${f.follower}`}>
                 <img className="profile-follower-img" src={avatars[f.follower]}/>
                 <div className="profile-follower-name">

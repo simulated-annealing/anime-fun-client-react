@@ -1,7 +1,8 @@
 import React from 'react'
 import { connect } from 'react-redux'
-import {Link, useParams} from 'react-router-dom'
+import { Link, useParams } from 'react-router-dom'
 import userService from '../services/user-service'
+import logo from '../imgs/logo_transparent.png'
 
 const NavBar = ({session}) => {
 
@@ -11,7 +12,7 @@ const NavBar = ({session}) => {
     <div className={animeId === undefined ? "nav-container" : "nav-container-detail"}>
     <div className="nav-content">
     <Link to="/" className="nav-logo"> 
-        <img width="50px" src='https://www.pngfind.com/pngs/m/685-6854970_react-logo-png-png-download-logo-png-reactjs.png'/>
+        <img className="nav-logo-img" src={logo}/>
     </Link>
     <div className="nav-controls">
     {

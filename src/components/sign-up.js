@@ -11,10 +11,14 @@ const SignUp = ({session, updateSession}) => {
         username:'', 
         password:'',
         role:'USER',
-        description: 'tell us more about yourself...',
+        description: '',
         email: '',
         dob: '2011-01-01',
-        exp: 0
+        exp: 0,
+        authorization: 0,
+        watchlist: [],
+        favorites: [],
+        avatar: ''
     })
 
     const history = useHistory()
