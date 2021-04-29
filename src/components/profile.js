@@ -128,23 +128,25 @@ const Profile = ({session, invalidateSession, updateUser, updateAvatar}) => {
     return (
     <div className="profile-page" >
     <h4 className="profile-favorites-title"> Personal Information </h4>
-    <div className="profile-container">
+    <div className="profile-information-container">
+    <div className="profile-information-content">
         <div className="profile-section">
-            <div className="profile-section-title"> User Avatar </div>
             <div className="profile-section-avatar">
                 <img className="profile-section-avatar-img" src={user.avatar}></img>
             </div>
-            <div className="profile-section-title">
-                <button onClick={followed?unfollowUser:followUser}>
-                    {followed?'Followed':'Follow'}
+            {(!session.user || session.user.username !== user.username) && <div className="profile-section-title">
+                <button onClick={followed?unfollowUser:followUser}
+                    className={followed? "profile-unfollow" : "profile-follow"}>
+                    {followed?'Followed':'Follow Me'}
                 </button>
-            </div>
-            <div className="profile-section-title">
-                <button onClick={updateAvatarClicked}>
+            </div>}
+            {session.user && session.user.username === user.username && <div className="profile-section-title">
+                <button onClick={updateAvatarClicked} className="profile-feel-lucky">
                     I'm feeling lucky!
                 </button>
-            </div>
+            </div>}
         </div>
+        <div>
         <div className="profile-section">
             <div className="profile-section-title"> User Name </div>
             <div className="profile-section-data"> {user.username} </div>
@@ -154,6 +156,12 @@ const Profile = ({session, invalidateSession, updateUser, updateAvatar}) => {
             <div className="profile-section-data"> {user.role} </div>
         </div>
         <div className="profile-section">
+            <div className="profile-section-title"> Level </div>
+            <div className="profile-section-data"> {user.level} 123 </div>
+        </div>
+        </div>
+        <div>
+        <div className="profile-section">
             <div className="profile-section-title"> Joined Anime Fun On </div>
             <div className="profile-section-data"> {user.createAt} </div>
         </div>
@@ -162,8 +170,14 @@ const Profile = ({session, invalidateSession, updateUser, updateAvatar}) => {
             <div className="profile-section-data"> {user.email} </div>
         </div>
         <div className="profile-section">
-            <div className="profile-section-title"> Description </div>
-            <textarea className="description-textarea" value={user.description}
+            <div className="profile-section-title"> Date of Birth </div>
+            <div className="profile-section-data"> {user.dob} 1997 </div>
+        </div>
+        </div>
+    </div>
+        <div className="profile-section">
+            <div className="profile-section-title" htmlFor="aboutme"> About me </div>
+            <textarea rows="8" id="aboutme" className="description-textarea" value={user.description}
                 disabled = {username !== undefined}
                 placeholder="leave your comments here..." onChange = {e => {
                     setUser({

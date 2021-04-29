@@ -618,13 +618,18 @@ h1, h2, h3, h4, h5, h6 {
   padding-bottom: 100px;
 }
 
-.profile-container {
+.profile-information-container {
   background: rgb(var(--color-foreground));
   border-radius: 12px;
   padding: 25px;
   margin-left: 320px;
   margin-right: 320px;
-  min-width: 0;
+  min-width: 500px;
+}
+
+.profile-information-content {
+  display: grid;
+  grid-template-columns: 190px 1fr 1fr;
 }
 
 .profile-anime-list-container {
@@ -638,7 +643,7 @@ h1, h2, h3, h4, h5, h6 {
 }
 
 .profile-section {
-  margin-bottom: 24px;
+  margin-bottom: 10px;
 }
 
 .profile-section-title {
@@ -646,7 +651,7 @@ h1, h2, h3, h4, h5, h6 {
   padding-left: 3px;
   font-size: 0.88rem;
   font-weight: 650;
-  margin-bottom: 8px;
+  margin-bottom: 4px;
 }
 
 .profile-section-data {
@@ -654,7 +659,7 @@ h1, h2, h3, h4, h5, h6 {
   font-size: 0.9rem;
   font-style: italic;
   display: inline-block;
-  width: 100%;
+  width: 90%;
   background: rgb(var(--color-background));
   border-radius: 5px;
   color: rgb(var(--color-text-light));
@@ -826,7 +831,7 @@ h1, h2, h3, h4, h5, h6 {
   font-weight: 520;
   margin-top: 60px;
   margin-bottom: 15px;
-  color: rgb(var(--color-background-1000));
+  color: rgb(var(--color-background-700));
 }
 
 .nav-container {
@@ -959,6 +964,80 @@ h1, h2, h3, h4, h5, h6 {
 }
 
 .profile-section-avatar-img {
-  height: 125px;
+  height: 152px;
   border-radius: 6px;
+}
+
+.profile-feel-lucky {
+  width: 152px;
+  border-width: 0px;
+  margin-top: 10px;
+  border-radius: 4px;
+  margin-left: -2px;
+  font-size: 0.9rem;
+  padding: 6px 10px;
+  font-weight: 400;
+  color: var(--color-background-1200);
+  background-color: darkseagreen;
+}
+
+.profile-feel-lucky:hover {
+  width: 152px;
+  border-width: 0px;
+  margin-top: 10px;
+  border-radius: 4px;
+  margin-left: -2px;
+  font-size: 0.9rem;
+  padding: 6px 10px;
+  color: black;
+  background-color: blanchedalmond;
+}
+
+.profile-follow {
+  width: 152px;
+  border-width: 0px;
+  margin-top: 10px;
+  border-radius: 4px;
+  margin-left: -2px;
+  color: var(--color-background-1100);
+  font-size: 0.9rem;
+  padding: 6px 10px;
+  background-color:burlywood;
+}
+
+.profile-follow:hover {
+  width: 152px;
+  border-width: 0px;
+  margin-top: 10px;
+  border-radius: 4px;
+  margin-left: -2px;
+  font-size: 0.9rem;
+  padding: 6px 10px;
+  background-color:gold;
+  color: black;
+}
+
+
+.profile-unfollow {
+  width: 152px;
+  border-width: 0px;
+  margin-top: 10px;
+  border-radius: 4px;
+  margin-left: -2px;
+  font-size: 0.9rem;
+  padding: 6px 10px;
+  background-color:gold;
+  color: black;
+}
+
+.profile-unfollow:hover {
+  width: 152px;
+  border-width: 0px;
+  margin-top: 10px;
+  border-radius: 4px;
+  margin-left: -2px;
+  font-size: 0.9rem;
+  padding: 6px 10px;
+  color: var(--color-background-1100);
+  background-color:burlywood;
 }
