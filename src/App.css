@@ -176,7 +176,7 @@ h1, h2, h3, h4, h5, h6 {
 
 .anime_list_title_user{
   margin-bottom: 15px;
-  color:cornflowerblue;
+  color:darkgoldenrod
 }
 
 .anime_item_container {
@@ -1040,4 +1040,26 @@ h1, h2, h3, h4, h5, h6 {
   padding: 6px 10px;
   color: var(--color-background-1100);
   background-color:burlywood;
+}
+
+.color-text-0 {
+  color:crimson;
+}
+.color-text-1 {
+  color:chocolate;
+}
+.color-text-2 {
+  color:goldenrod
+}
+.color-text-3 {
+  color:darkcyan
+}
+.color-text-4 {
+  color:cornflowerblue;
+}
+.color-text-5 {
+  color:blueviolet;
+}
+.color-text-6 {
+  color:violet;
 }

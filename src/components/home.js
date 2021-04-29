@@ -11,6 +11,7 @@ const Home = ({session}) => {
     const [popularThisSeason, setPopularThisSeason] = useState({})
     const [upcomingNextSeason, setUpcomingNextSeason] = useState({})
     const [allTimePopular, setAllTimePopular] = useState({})
+    const [recommendForUser, setRecommentForUser] = useState({})
 
     const year='2020'
     const season='summer'
@@ -25,12 +26,18 @@ const Home = ({session}) => {
             then(animes => setUpcomingNextSeason(animes))
         kitsuService.searchAnimes({}, ['popularityRank']).
             then(animes => setAllTimePopular(animes))
-    }, [year, season, nextSeason])
+        if (userService.isSessionValid(session)) {
+            const userdob = session.user.dob || '1998-01-01'
+            const yy = Math.min(Math.max(Number.parseInt(userdob.split('-')[0])+16, 2001), 2021)
+            kitsuService.searchAnimes({year:yy}, ['popularityRank']).
+                then(animes => setRecommentForUser(animes))
+        }
+    }, [year, season, nextSeason, session])
 
     return (
     <div className="container"> 
         { userService.isSessionValid(session) && <>
-        <AnimeList title="SPECIAL FOR YOU" animes={trendingNow.data} userOnly={true}/>
+        <AnimeList title="SPECIAL FOR YOU" animes={recommendForUser.data} userOnly={true}/>
         <br/>
         </>}
         <AnimeList title="TRENDING NOW" animes={trendingNow.data}/>

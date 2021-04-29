@@ -4,8 +4,11 @@ import AnimeCard from './anime-card'
 const AnimeList = ({title, animes, userOnly=false}) => {
 
     return <>
-    <h3 className={`title_h3 ${userOnly ? 'anime_list_title_user' : 'anime_list_title'}`}>
-        {title}
+    <h3 className='title_h3 anime_list_title'>
+    {
+        [...title].map((c, idx) => 
+            <span className={userOnly ? `color-text-${idx%7}` : ''}>{c}</span>)
+    }
     </h3>
     <div className="row"> 
     {

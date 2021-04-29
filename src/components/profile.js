@@ -156,8 +156,8 @@ const Profile = ({session, invalidateSession, updateUser, updateAvatar}) => {
             <div className="profile-section-data"> {user.role} </div>
         </div>
         <div className="profile-section">
-            <div className="profile-section-title"> Level </div>
-            <div className="profile-section-data"> {user.level} 123 </div>
+            <div className="profile-section-title"> Exp </div>
+            <div className="profile-section-data"> {user.exp || '0'} </div>
         </div>
         </div>
         <div>
@@ -171,7 +171,7 @@ const Profile = ({session, invalidateSession, updateUser, updateAvatar}) => {
         </div>
         <div className="profile-section">
             <div className="profile-section-title"> Date of Birth </div>
-            <div className="profile-section-data"> {user.dob} 1997 </div>
+            <div className="profile-section-data"> {user.dob || '2001-01-01'}</div>
         </div>
         </div>
     </div>

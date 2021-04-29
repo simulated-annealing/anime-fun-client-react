@@ -12,7 +12,9 @@ const SignUp = ({session, updateSession}) => {
         password:'',
         role:'USER',
         description: 'tell us more about yourself...',
-        email: ''
+        email: '',
+        dob: '2011-01-01',
+        exp: 0
     })
 
     const history = useHistory()
@@ -115,6 +117,21 @@ const SignUp = ({session, updateSession}) => {
                 setNewUser({
                     ...newUser,
                     email: e.target.value
+                })}/>
+        </div>
+        </div>
+
+        <div className="row mb-3">
+        <label htmlFor="dob_field" className="col-sm-2 col-form-label">
+            Date of Birth
+        </label>
+        <div className="col-sm-10">
+        <input className="form-control" id="email_field" 
+            placeholder="example@animefun.com" type="date"
+            value={newUser.dob} onChange={e => 
+                setNewUser({
+                    ...newUser,
+                    dob: e.target.value
                 })}/>
         </div>
         </div>
